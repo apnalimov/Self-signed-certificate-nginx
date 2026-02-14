@@ -9,7 +9,7 @@
 
 ```
 openssl req `# создать новый сертификат/ключ` \
-  -subj '/CN=192.168.1.100/CN=homelab_ROOT_CA/CN=homelab_ROOT_CA.ru' `# FQDN субъекта` \
+  -subj '/CN=homelab_ROOT_CA/CN=homelab_ROOT_CA.ru' `# FQDN субъекта` \
   -x509 -sha256 `# создать сертификат, а не запрос на подпись сертификата` \
   -days 3653 `# на 10 лет` \
   -newkey rsa:2048 `# сгенерировать новый ключ размером 2048 бит с алгоритмом RSA` \
@@ -34,7 +34,7 @@ openssl genrsa `# сгенерировать ключ с алгоритмом RS
 ```
 openssl req `# запрос подписи сертификата` \
   -new `# новый запрос` \
-  -subj '/CN=localhost/CN=homelab/CN=homelab.ru' `# FQDN субъекта` \
+  -subj 'CN=homelab/CN=homelab.ru' `# FQDN субъекта` \
   -key homelab.key `# файл ключа` \
   -out homelab.csr `# файл для запроса`
 ```
@@ -50,7 +50,7 @@ openssl req `# запрос подписи сертификата` \
     [alt_names]
     DNS.1=localhost
     IP.1=127.0.0.1
-    IP.1=192.168.1.100
+    IP.1=192.168.1.100 `# Мой айпишник домашнего сервера, на котором поднимал NGINX и выпускал серты`
 ```
 
 Подписываем сертификат сервиса коренвым сертификатом:
@@ -61,7 +61,7 @@ openssl x509 -req `# Подпись сертификата` \
   -CAkey homelab_ROOT_CA.key `# Ключ CA` \
   -in homelab.csr `# Запрос на подпись` \
   -out homelab.crt `# Файл для полученного сертификата` \
-  -days 1 `# на 1 год` \
+  -days 1 `# на 1 день` \
   -CAcreateserial`# сгенерировать идентификатор` \
   -extfile req.ext # файл с расширениями
 ```
