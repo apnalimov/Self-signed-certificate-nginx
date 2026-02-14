@@ -44,13 +44,13 @@ openssl req `# запрос подписи сертификата` \
 Содержание файла с расширениями сертификата req.ext:
 
 ```
-  authorityKeyIdentifier=keyid,issuer
-  basicConstraints=CA:FALSE
-  subjectAltName=@alt_names
-  [alt_names]
-  DNS.1=localhost
-  IP.1=127.0.0.1
-  IP.1=192.168.1.100 `# Мой айпишник домашнего сервера, на котором поднимал NGINX и выпускал серты`
+authorityKeyIdentifier=keyid,issuer
+basicConstraints=CA:FALSE
+subjectAltName=@alt_names
+[alt_names]
+DNS.1=localhost
+IP.1=127.0.0.1
+IP.1=192.168.1.100 `# Мой айпишник домашнего сервера, на котором поднимал NGINX и выпускал серты`
 ```
 
 Подписываем сертификат сервиса коренвым сертификатом:
